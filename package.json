@@ -1,19 +1,27 @@
 {
-  "name": "react_express",
+  "name": "react_backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ork821/react_backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "password-generator": "^2.2.0"
+  "bugs": {
+    "url": "https://github.com/ork821/react_backend/issues"
   },
-  "scripts": {
-    "start": "nodemon index.js & cd client && yarn start"
+  "homepage": "https://github.com/ork821/react_backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
