@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 
-app.get('/', (req, res) => {
-    res.send('Home')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.post('/api/todos', (req, res) => {
+    res.json(req.body)
 })
 
-const PORT = process.env.PORT || 5000;
+
+
+const PORT = process.env.PORT || 8000;
 app.listen(PORT,
     () => console.log(`Server is running on port - ${PORT}`)
 );

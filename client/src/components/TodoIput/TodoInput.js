@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Input, Button} from "@material-ui/core";
+import {connect} from "react-redux";
+import {addTodo} from "../../redux/todo.actions";
+import axios from 'axios';
+
 
 class TodoInput extends Component {
     constructor(props) {
@@ -9,8 +12,17 @@ class TodoInput extends Component {
         }
     }
 
-    handleSubmit = () => {
-        const {input} = this.state
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const todo = {
+            text: this.state.input
+        }
+        this.props.addTodo(todo.text);
+        axios.post(`/api/todos`, { todo })
+            .then(res => {
+                console.log(res);
+            })
+
 
     }
 
@@ -24,8 +36,8 @@ class TodoInput extends Component {
     render() {
         return (
             <div className='todo-input'>
-                <form method='post' onSubmit={this.handleSubmit}>
-                    <input type="text" placeholder='enter todo' onChange={this.handleChange}/>
+                <form method='post' action='/' onSubmit={(e) => this.handleSubmit(e)}>
+                    <input type="text" placeholder='enter todo' name='todo' onChange={this.handleChange}/>
                     <button type='sublit'>Add</button>
                 </form>
             </div>
@@ -35,4 +47,9 @@ class TodoInput extends Component {
 
 };
 
-export default TodoInput;
+const mapDispatchToProps = dispatch => ({
+    addTodo: text => dispatch(addTodo(text))
+})
+
+
+export default connect(null, mapDispatchToProps)(TodoInput);
